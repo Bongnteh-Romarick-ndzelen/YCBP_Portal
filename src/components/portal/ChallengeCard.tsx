@@ -1,7 +1,7 @@
 // src/components/portal/ChallengeCard.tsx
 import React from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { Challenge } from '../../utils/constants';
+import  type { Challenge } from '../../utils/constants';
 
 interface ChallengeCardProps {
     challenge: Challenge;

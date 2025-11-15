@@ -1,6 +1,6 @@
 // src/components/common/AuthLayout.tsx
 import React from 'react';
-import { View } from '../../utils/constants';
+import type { View } from '../../utils/constants';
 
 interface AuthLayoutProps {
     children: React.ReactNode;

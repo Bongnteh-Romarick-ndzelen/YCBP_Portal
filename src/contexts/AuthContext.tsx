@@ -1,6 +1,7 @@
 // src/contexts/AuthContext.tsx
 import React, { useState, useMemo, useCallback, createContext, useContext } from 'react';
-import { MOCK_USER_ID, View } from '../utils/constants';
+import { MOCK_USER_ID } from '../utils/constants';
+import type { View } from "../utils/constants";
 
 interface User {
     userId: string;
