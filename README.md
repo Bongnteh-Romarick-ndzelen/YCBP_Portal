@@ -1,73 +1,138 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Youth Cyber Bootcamp Portal (YCBP)
 
-Currently, two official plugins are available:
+**Building Cameroon's Next Generation of Cyber Defenders**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Youth Cyber Bootcamp Portal (YCBP) is an interactive, gamified learning and competition platform dedicated to training young Cameroonians (aged 15–30) in practical, real-world cybersecurity skills, including ethical hacking, digital forensics, and secure coding.
 
-## React Compiler
+-----
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 1. Project Goal & Impact
 
-## Expanding the ESLint configuration
+Cameroon, like many nations in Sub-Saharan Africa, faces a critical shortage of skilled cybersecurity professionals. YCBP directly addresses this by providing a safe, sandboxed environment where youth can gain the practical experience needed for careers in cybersecurity and contribute to national cyber defense.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Key Objectives
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* **Gamified Learning:** Deliver hands-on ethical hacking challenges (CTF-style) in a safe, sandboxed environment.
+* **Talent Identification:** Promote cyber talent for internships and national CERT recruitment.
+* **Certification:** Certify participants through progressive levels and digital badges (Bronze, Silver, Gold, National Cyber Defender).
+* **Community:** Foster a culture of ethical conduct and provide a Mentorship Hub for expert guidance.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+-----
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 💻 2. System Architecture & Core Technologies
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The YCBP is built on a modern, robust, and scalable MERN-stack architecture (with MongoDB for flexibility).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Architecture Overview
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The system utilizes a secure separation between the public-facing React frontend and the protected Node.js backend which manages data, authentication, and communication with the isolated CTF challenge containers.
+
+**Data Flow:** User (Browser/Mobile) $\xrightarrow{HTTPS}$ **React Frontend** $\xrightarrow{REST\ API}$ **Node.js (Express)** $\longrightarrow$ **MongoDB** / **AWS EC2 (CTF Labs)**
+
+### Core Stack
+
+| Component | Technology | Description |
+| :--- | :--- | :--- |
+| **Frontend** | **React** + **Vite** | Fast, modern interface built with **TailwindCSS** for rapid, responsive styling. |
+| **Backend** | **Node.js** + **Express.js** | Robust REST API for logic, data management, and orchestration. |
+| **Database** | **MongoDB** | Non-relational database for flexible storage of user progress, challenges, and leaderboards. |
+| **Auth** | **JWT** | Secure, stateless authentication with Role-Based Access Control (RBAC). |
+| **Real-time** | **Socket.io** | Used for live updates on challenge scoring and the Mentorship Hub chat. |
+| **CTF Labs** | **Docker** + **AWS EC2** | Sandboxed environment for running safe ethical hacking simulations. |
+
+-----
+
+## ✨ 3. Key Features
+
+| Feature | Description |
+| :--- | :--- |
+| **Cyber Challenges (CTF)** | Gamified Capture The Flag scenarios, quizzes, and vulnerability labs categorized by difficulty. |
+| **User Leaderboards** | Live, national, and regional rankings of participants based on total points. |
+| **Progressive Badging** | Automatic issuance of digital badges and certificates upon meeting specific point criteria. |
+| **Mentorship Hub** | Platform for students to interact with and seek guidance from cybersecurity experts and mentors (using Socket.io). |
+| **Admin Panel** | Centralized dashboard for challenge content upload, user management, and detailed report generation. |
+
+-----
+
+## ⚙️ 4. Installation & Setup
+
+These instructions are for setting up the project locally for development.
+
+### Prerequisites
+
+* Node.js (v18+)
+* npm or yarn
+* MongoDB Instance (Local or Atlas)
+* (Optional but recommended) Docker for running local CTF challenges.
+
+### A. Frontend Setup (`ycbp-frontend`)
+
+1. Navigate to the frontend directory:
+
+    ```bash
+    cd ycbp-frontend
+    ```
+
+2. Install dependencies:
+
+    ```bash
+    npm install
+    ```
+
+3. Create a `.env` file in the root and add your backend API URL:
+
+    ```bash
+    # .env (Frontend)
+    VITE_BACKEND_API_URL=http://localhost:5000/api
+    ```
+
+4. Start the development server:
+
+    ```bash
+    npm run dev
+    ```
+
+### B. Backend Setup (`ycbp-backend`)
+
+1. Navigate to the backend directory:
+
+    ```bash
+    cd ycbp-backend
+    ```
+
+2. Install dependencies:
+
+    ```bash
+    npm install
+    ```
+
+3. Create a `.env` file in the root:
+
+    ```bash
+    # .env (Backend)
+    PORT=5000
+    MONGODB_URI=<Your-MongoDB-Connection-String>
+    JWT_SECRET=<A-Strong-Secret-Key>
+    # Optional: AWS/Docker config for challenge deployment
+    ```
+
+4. Start the backend server:
+
+    ```bash
+    npm start
+    ```
+
+-----
+
+## 👥 5. Team & Contributions
+
+This project is open-source and dedicated to promoting cybersecurity education in Cameroon.
+
+We welcome contributions from developers, security researchers, educators, and technical writers\! Please check our open issues and consult the `CONTRIBUTING.md` guide.
+
+### Target Users
+
+* **Students:** University and technical school students (ICT, CS)
+* **Youth:** Young professionals aged 15–30
+* **Experts:** Mentors, instructors, and cybersecurity experts
